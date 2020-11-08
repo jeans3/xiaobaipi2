@@ -140,30 +140,41 @@ Page({
   insertBattleList: function () {
     var that = this
     try {
-      var date = dateFormate.formatTime(new Date(that.data.date), "M-D")
-      var play1_id = that.data.play1_id
-      var play2_id = that.data.play2_id
-      var play3_id = that.data.play3_id
-      var play4_id = that.data.play4_id
-      this.db = wx.cloud.database()
-      this.test = that.db.collection('battlelist')
-      this.test.add({
-        // data 字段表示需新增的 JSON 数据
-        data: {
-          play1_id: play1_id,
-          play2_id: play2_id,
-          play3_id: play3_id,
-          play4_id: play4_id,
-          date: date
-        },
-        //  数据插入成功，调用该函数
-        success: function (res) {
+      dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
+        console.log("长度", res.data.length)
+        if (res.data.length != 0) {
           wx.showToast({
-            title: '插入成功',
+            title: '已存在',
           })
+          return
+        } else {
+          var date = dateFormate.formatTime(new Date(that.data.date), "M-D")
+          var play1_id = that.data.play1_id
+          var play2_id = that.data.play2_id
+          var play3_id = that.data.play3_id
+          var play4_id = that.data.play4_id
+          this.db = wx.cloud.database()
+          this.test = that.db.collection('battlelist')
+          this.test.add({
+            // data 字段表示需新增的 JSON 数据
+            data: {
+              play1_id: play1_id,
+              play2_id: play2_id,
+              play3_id: play3_id,
+              play4_id: play4_id,
+              date: date
+            },
+            //  数据插入成功，调用该函数
+            success: function (res) {
+              wx.showToast({
+                title: '锁定成功',
+              })
 
+            }
+          })
         }
       })
+
     } catch (e) {
       wx.showModal({
         title: '错误',
@@ -176,12 +187,6 @@ Page({
   onInsert: function () {
     var that = this
     try {
-      dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
-        console.log("长度", res.data.length)
-        if (res.data.length == 0) {
-          that.insertBattleList()
-        }
-      })
       var play1_score = util.bijiao(that.data.play1_score)
       var play2_score = util.bijiao(that.data.play2_score)
       var play3_score = util.bijiao(that.data.play3_score)
@@ -243,11 +248,11 @@ Page({
             title: '插入成功',
           })
           that.setData({
-            play1: "",
-            play2: "",
-            play3: "",
-            play4: "",
-            shui: "",
+            play1_score: "",
+            play2_score: "",
+            play3_score: "",
+            play4_score: "",
+            shui: ""
           })
           that.onQuery()
         }
@@ -264,28 +269,76 @@ Page({
 
   bindPickerPlay1: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      play1_id: e.detail.value
+    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
+      console.log("长度", res.data.length)
+      if (res.data.length != 0) {
+        this.setData({
+          play1_id: res.data[0].play1_id,
+        })
+        wx.showToast({
+          title: '已锁定对阵',
+        })
+      } else {
+        this.setData({
+          play1_id: e.detail.value
+        })
+      }
     })
   },
 
   bindPickerPlay2: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      play2_id: e.detail.value
+    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
+      console.log("长度", res.data.length)
+      if (res.data.length != 0) {
+        this.setData({
+          play2_id: res.data[0].play2_id,
+        })
+        wx.showToast({
+          title: '已锁定对阵',
+        })
+      } else {
+        this.setData({
+          play2_id: e.detail.value
+        })
+      }
     })
   },
   bindPickerPlay3: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      play3_id: e.detail.value
+    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
+      console.log("长度", res.data.length)
+      if (res.data.length != 0) {
+        this.setData({
+          play3_id: res.data[0].play3_id,
+        })
+        wx.showToast({
+          title: '已锁定对阵',
+        })
+      } else {
+        this.setData({
+          play3_id: e.detail.value
+        })
+      }
     })
   },
 
   bindPickerPlay4: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-    this.setData({
-      play4_id: e.detail.value
+    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
+      console.log("长度", res.data.length)
+      if (res.data.length != 0) {
+        this.setData({
+          play4_id: res.data[0].play4_id,
+        })
+        wx.showToast({
+          title: '已锁定对阵',
+        })
+      } else {
+        this.setData({
+          play4_id: e.detail.value
+        })
+      }
     })
   },
 

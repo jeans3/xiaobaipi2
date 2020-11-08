@@ -102,14 +102,13 @@
   </view>
 </view>
 
-<!-- <view>
-  <button class="button" type="primary" plain="true" bindtap='insertBattleList'>锁定对阵</button>
-</view> -->
-
 <view>
-  <button class="button" type="primary" plain="true" bindtap='onInsert'>单场记录</button>
+  <button class="button" type="primary" plain="true" bindtap='onInsert'>新增记录</button>
 </view>
 
+<view>
+  <button class="button" type="primary" plain="true" bindtap='insertBattleList'>锁定对阵</button>
+</view>
 
 <view class="table">
   <view class="tr">
@@ -122,7 +121,7 @@
   </view>
 </view>
 
-<scroll-view scroll-y="true" style="height:300px" class="scroll-header">
+<scroll-view scroll-y="true" style="height:250px" class="scroll-header">
   <view class="table">
     <block wx:for="{{list}}" wx:if="{{list!=null}}">
       <view class="tr">
