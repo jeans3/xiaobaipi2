@@ -1,0 +1,63 @@
+/* miniprogram/pages/singleAdd/singleAdd.wxss */
+.section {
+  /* margin-top: 50px; */
+  text-align: center;
+
+}
+
+.userinfo-avatar[size] {
+  width: 25px;
+}
+
+
+.userinfo-avatar:after {
+  border: none;
+}
+
+
+.table {
+  border: 1px solid rgb(8, 8, 8);
+  /* margin-top: 75px; */
+  font-size: 28rpx;
+  background: #fff;
+  border-right: none;
+}
+
+.tr {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tddate {
+  font-size: 20px;
+  text-align: center;
+  border: 1px solid rgb(8, 8, 8);
+  /* display: inline-block; */
+  border-left: none;
+  border-bottom: none;
+  padding: 10rpx 1%;
+  height: auto;
+  width: 100%;
+}
+
+.td {
+  text-align: center;
+  border: 1px solid rgb(8, 8, 8);
+  display: inline-block;
+  border-left: none;
+  border-bottom: none;
+  padding: 10rpx 1%;
+  height: auto;
+  width: 40%;
+}
+
+.td1 {
+  text-align: center;
+  border: 1px solid rgb(8, 8, 8);
+  display: inline-block;
+  border-left: none;
+  border-bottom: none;
+  padding: 10rpx 1%;
+  height: auto;
+  width: 40%;
+}

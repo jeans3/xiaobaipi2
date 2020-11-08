@@ -1,0 +1,19 @@
+<!--miniprogram/pages/xiaobaipiUser/xiaobaipiUser.wxml-->
+
+<button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
+  style="background-image: url({{avatarUrl}})" size="default">
+</button>
+
+<view class="name">
+  <text>姓名:</text>
+  <input confirm-type="next" placeholder="请输入姓名" value="{{name}}" bindinput="bindKeyInputname" />
+</view>
+
+<view class="name">
+  <text>昵称:</text>
+  <input confirm-type="next" value="{{nickName}}" bindinput="bindKeyInputnickName" />
+</view>
+
+<view>
+  <button type="primary" plain="true" style='margin-top: 50rpx;' bindtap='addUser'>新增</button>
+</view>

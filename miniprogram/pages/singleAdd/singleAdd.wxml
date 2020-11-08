@@ -1,0 +1,98 @@
+<!--miniprogram/pages/singleAdd/singleAdd.wxml-->
+<view class="section">
+
+</view>
+
+
+<view class="table">
+  <view class="tr">
+    <view class="tddate">
+      <picker mode="date" value="{{date}}" bindchange="bindDateChange">
+        <view class="picker">
+          日期: {{date}}
+          场次: {{changci}}
+        </view>
+      </picker>
+    </view>
+  </view>
+
+  <view class="tr">
+
+    <view class="td">
+      <picker mode="selector" bindchange="bindPickerPlay1" value="{{userList[userPlay1]}}" range="{{userList}}"
+        range-key="{{'_id'}}">
+        <view class="picker">
+          <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
+            style="background-image: url({{userList[userPlay1].avatarUrl}})" size="default">
+          </button>
+          {{userList[userPlay1]._id}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="td">
+      <picker mode="selector" bindchange="bindPickerPlay2" value="{{userList[userPlay2]}}" range="{{userList}}"
+        range-key="{{'_id'}}">
+        <view class="picker">
+          <button class="userinfo-avatar"
+            style="background-image: url({{userList[userPlay2].avatarUrl}})" size="default">
+          </button>
+          {{userList[userPlay2]._id}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="td">
+      <picker mode="selector" bindchange="bindPickerPlay3" value="{{userList[userPlay3]}}" range="{{userList}}"
+        range-key="{{'_id'}}">
+        <view class="picker">
+          <button class="userinfo-avatar"
+            style="background-image: url({{userList[userPlay3].avatarUrl}})" size="default">
+          </button>
+          {{userList[userPlay3]._id}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="td">
+      <picker mode="selector" bindchange="bindPickerPlay4" value="{{userList[userPlay4]}}" range="{{userList}}"
+        range-key="{{'_id'}}">
+        <view class="picker">
+          <button  class="userinfo-avatar"
+            style="background-image: url({{userList[userPlay4].avatarUrl}})" size="default">
+          </button>
+          {{userList[userPlay4]._id}}
+        </view>
+      </picker>
+    </view>
+
+    <view class="td">
+      <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
+        style="background-image: url({{shuiavatarUrl}})" size="default">
+      </button>
+      水
+    </view>
+
+  </view>
+  <view class="tr">
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play1}}" bindinput="bindKeyInputPlay1" />
+    </view>
+
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play2}}" bindinput="bindKeyInputPlay2" />
+    </view>
+
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play3}}" bindinput="bindKeyInputPlay3" />
+    </view>
+
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play4}}" bindinput="bindKeyInputPlay4" />
+    </view>
+
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{shui}}" bindinput="bindKeyInputshui" />
+    </view>
+  </view>
+</view>
+
+
+<view>
+  <button type="primary" plain="true" style='margin-top: 40rpx;' bindtap='onQuery'>单场记录</button>
+</view>

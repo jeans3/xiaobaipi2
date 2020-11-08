@@ -1,0 +1,84 @@
+/* miniprogram/pages/xiaobaipiUser/xiaobaipiUser.wxss */
+
+
+
+.userinfo-avatar[size] {
+  margin-top: 50px;
+  width: 100rpx;
+}
+
+
+.userinfo-avatar:after {
+  border: none;
+}
+
+.scroll-x {
+  display: flex;
+  white-space: nowrap;
+}
+
+.table {
+  border: 1px solid #ccc;
+  margin-top: 30px;
+  font-size: 28rpx;
+  background: #fff;
+  border-right: none;
+}
+
+.tr {
+  display: flex;
+  justify-content: space-between;
+}
+
+.td {
+  text-align: center;
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-left: none;
+  border-bottom: none;
+  padding: 10rpx 1%;
+  width: 30%;
+}
+
+.td1 {
+  text-align: center;
+  border: 1px solid #ccc;
+  display: inline-block;
+  border-left: none;
+  border-bottom: none;
+  padding: 10rpx 1%;
+  width: 80%;
+}
+
+.title {
+  margin-top: 30px;
+  font-size: 50rpx;
+  text-align: center;
+}
+
+.text {
+  margin-left: 5mm;
+  display: inline-block;
+}
+
+.name {
+  margin-top: 30px;
+  margin-left: 5mm;
+  display: inline-block;
+}
+
+
+.weui-cell__hd {
+  display: inline-block;
+  width: auto;
+  margin-left: 5mm;
+}
+
+.weui-cell__bd {
+  display: inline-block;
+  width: auto;
+}
+
+.weui-cells_after-title {
+  margin-top: 50px;
+}

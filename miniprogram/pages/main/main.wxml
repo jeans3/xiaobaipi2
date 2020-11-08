@@ -1,0 +1,33 @@
+<!--miniprogram/pages/main/main.wxml-->
+<view class="container">
+
+  <view class="uploader">
+    <navigator url="../singleAdd/singleAdd" open-type="navigate" class="uploader-text">
+      <text>单场 Single Match</text>
+    </navigator>
+  </view>
+
+  <view class="uploader">
+    <navigator url="../series/series" open-type="navigate" class="uploader-text">
+      <text>赛季 Series</text>
+    </navigator>
+  </view>
+
+  <view class="uploader">
+    <navigator url="../xiaobaipiUser/xiaobaipiUser" open-type="navigate" class="uploader-text">
+      <text>用户 Add User</text>
+    </navigator>
+  </view>
+
+  <view class="uploader">
+    <navigator url="../xiaobaipiUser/xiaobaipiUser" open-type="navigate" class="uploader-text">
+      <text>账单</text>
+    </navigator>
+  </view>
+
+  <view class="uploader">
+    <navigator url="../xiaobaipiLog/xiaobaipiLog" open-type="navigate" class="uploader-text">
+      <text>日志 Log</text>
+    </navigator>
+  </view>
+</view>
