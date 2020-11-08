@@ -1,0 +1,10 @@
+<!--miniprogram/pages/xiaobaipiLog/xiaobaipiLog.wxml-->
+
+
+<scroll-view scroll-y="true" style="height:600px" class="scroll-header">
+  <block wx:for="{{list}}" wx:if="{{list!=null}}">
+    <view class="tr">
+      <view class="text">{{item.log}}</view>
+    </view>
+  </block>
+</scroll-view>

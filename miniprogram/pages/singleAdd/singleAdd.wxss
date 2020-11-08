@@ -61,3 +61,14 @@
   height: auto;
   width: 40%;
 }
+
+.tdlist {
+  text-align: center;
+  border: 1px solid rgb(8, 8, 8);
+  display: inline-block;
+  border-left: none;
+  border-bottom: none;
+  padding: 10rpx 1%;
+  height: 20px;
+  width: 25%;
+}

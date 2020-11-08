@@ -16,7 +16,8 @@
     "pages/im/room/room",
     "pages/singleAdd/singleAdd",
     "pages/series/series",
-    "pages/xiaobaipiUser/xiaobaipiUser"
+    "pages/xiaobaipiUser/xiaobaipiUser",
+    "pages/xiaobaipiLog/xiaobaipiLog"
   ],
   "window": {
     "backgroundColor": "#F6F6F6",

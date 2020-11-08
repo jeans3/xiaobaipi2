@@ -1,0 +1,5 @@
+/* miniprogram/pages/xiaobaipiLog/xiaobaipiLog.wxss */
+
+.text{
+  font-size: 25rpx;
+}

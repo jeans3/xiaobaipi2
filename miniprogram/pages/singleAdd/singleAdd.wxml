@@ -20,48 +20,48 @@
 
     <view class="td">
       <picker mode="selector" bindchange="bindPickerPlay1" value="{{userList[userPlay1]}}" range="{{userList}}"
-        range-key="{{'_id'}}">
+        range-key="{{'nickName'}}">
         <view class="picker">
           <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
             style="background-image: url({{userList[userPlay1].avatarUrl}})" size="default">
           </button>
-          {{userList[userPlay1]._id}}
+          {{userList[userPlay1].nickName}}
         </view>
       </picker>
     </view>
 
     <view class="td">
       <picker mode="selector" bindchange="bindPickerPlay2" value="{{userList[userPlay2]}}" range="{{userList}}"
-        range-key="{{'_id'}}">
+        range-key="{{'nickName'}}">
         <view class="picker">
           <button class="userinfo-avatar"
             style="background-image: url({{userList[userPlay2].avatarUrl}})" size="default">
           </button>
-          {{userList[userPlay2]._id}}
+          {{userList[userPlay2].nickName}}
         </view>
       </picker>
     </view>
 
     <view class="td">
       <picker mode="selector" bindchange="bindPickerPlay3" value="{{userList[userPlay3]}}" range="{{userList}}"
-        range-key="{{'_id'}}">
+        range-key="{{'nickName'}}">
         <view class="picker">
           <button class="userinfo-avatar"
             style="background-image: url({{userList[userPlay3].avatarUrl}})" size="default">
           </button>
-          {{userList[userPlay3]._id}}
+          {{userList[userPlay3].nickName}}
         </view>
       </picker>
     </view>
 
     <view class="td">
       <picker mode="selector" bindchange="bindPickerPlay4" value="{{userList[userPlay4]}}" range="{{userList}}"
-        range-key="{{'_id'}}">
+        range-key="{{'nickName'}}">
         <view class="picker">
           <button  class="userinfo-avatar"
             style="background-image: url({{userList[userPlay4].avatarUrl}})" size="default">
           </button>
-          {{userList[userPlay4]._id}}
+          {{userList[userPlay4].nickName}}
         </view>
       </picker>
     </view>
@@ -94,5 +94,18 @@
 
 
 <view>
-  <button type="primary" plain="true" style='margin-top: 40rpx;' bindtap='onQuery'>单场记录</button>
+  <button type="primary" plain="true" style='margin-top: 40rpx;' bindtap='onInsert'>单场记录</button>
 </view>
+
+<scroll-view scroll-y="true" style="height:400px" class="scroll-header">
+  <view class="table">
+    <block wx:for="{{list}}" wx:if="{{list!=null}}">
+      <view class="tr">
+        <view class="tdlist">{{item.date}}</view>
+        <view class="tdlist">{{item.shanjian}}</view>
+        <view class="tdlist">{{item.adai}}</view>
+        <view class="tdlist">{{item.paomian}}</view>
+      </view>
+    </block>
+  </view>
+</scroll-view>

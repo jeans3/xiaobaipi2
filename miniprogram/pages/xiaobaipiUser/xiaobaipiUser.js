@@ -2,6 +2,8 @@
 var app = getApp()
 var getOpenid = require("../util/util")
 var onQuery = require("../util/dateBase")
+const dateBase = require("../util/dateBase")
+var dateFormate = require("../util/dateFormate")
 
 Page({
 
@@ -123,9 +125,10 @@ Page({
       })
       return
     }
-    onQuery.onQuery("user","_id",that.data.nickName).then(res => {
+    console.log("openid" + app.globalData.openid)
+    onQuery.onQuery("user", "_id", app.globalData.openid).then(res => {
       console.log(res.data.length)
-      if (res.data.length!=0) {
+      if (res.data.length != 0) {
         wx.showModal({
           title: '错误',
           content: "用户已存在",
@@ -142,20 +145,22 @@ Page({
       this.test.add({
         // data 字段表示需新增的 JSON 数据
         data: {
+          _id: app.globalData.openid,
           name: that.data.name,
-          _id: that.data.nickName,
+          nickName: that.data.nickName,
           avatarUrl: that.data.avatarUrl,
         },
         //  数据插入成功，调用该函数
         success: function (res) {
-          wx.showModal({
-            title: "插入成功",
-            success(res) {
-              that.setData({
+          that.setData({
 
-              })
-            }
           })
+          wx.showToast({
+            title: '新增用户成功',
+          })
+          //增加新增用户日志
+          var log = "[新增用户]nickName:" + that.data.nickName + ";name:" + that.data.name
+          dateBase.insertLog(log)
         }
       })
     }

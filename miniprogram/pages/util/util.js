@@ -12,6 +12,16 @@ function sum(list, name) {
   return a
 }
 
+function bijiao(name) {
+  var msg = "请重新输入"
+  if (isNaN(Number(name))) {
+    
+  }else{
+    return Number(name)
+  }
+  return msg
+}
+
 /* 
   判断管理员
   appOpenid:当前使用小程序的openid
@@ -55,4 +65,5 @@ module.exports = {
   sum: sum,
   getOpenid: getOpenid,
   adminUser: adminUser,
+  bijiao: bijiao,
 }
