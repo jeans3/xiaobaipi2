@@ -10,7 +10,13 @@
       <picker mode="date" value="{{date}}" bindchange="bindDateChange">
         <view class="picker">
           日期: {{date}}
-          场次: {{changci}}
+        </view>
+      </picker>
+    </view>
+    <view class="tddate">
+      <picker mode="selector" value="{{changciIndex}}" range="{{changci}}" bindchange="bindPickerChange">
+        <view class="picker">
+          场次：第{{changci[changciIndex]}}场
         </view>
       </picker>
     </view>
@@ -19,49 +25,49 @@
   <view class="tr">
 
     <view class="td">
-      <picker mode="selector" bindchange="bindPickerPlay1" value="{{userList[userPlay1]}}" range="{{userList}}"
+      <picker mode="selector" bindchange="bindPickerPlay1" value="{{userList[play1_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
           <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
-            style="background-image: url({{userList[userPlay1].avatarUrl}})" size="default">
+            style="background-image: url({{userList[play1_id].avatarUrl}})" size="default">
           </button>
-          {{userList[userPlay1].nickName}}
+          {{userList[play1_id].nickName}}
         </view>
       </picker>
     </view>
 
     <view class="td">
-      <picker mode="selector" bindchange="bindPickerPlay2" value="{{userList[userPlay2]}}" range="{{userList}}"
+      <picker mode="selector" bindchange="bindPickerPlay2" value="{{userList[play2_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
-          <button class="userinfo-avatar"
-            style="background-image: url({{userList[userPlay2].avatarUrl}})" size="default">
+          <button class="userinfo-avatar" style="background-image: url({{userList[play2_id].avatarUrl}})"
+            size="default">
           </button>
-          {{userList[userPlay2].nickName}}
+          {{userList[play2_id].nickName}}
         </view>
       </picker>
     </view>
 
     <view class="td">
-      <picker mode="selector" bindchange="bindPickerPlay3" value="{{userList[userPlay3]}}" range="{{userList}}"
+      <picker mode="selector" bindchange="bindPickerPlay3" value="{{userList[play3_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
-          <button class="userinfo-avatar"
-            style="background-image: url({{userList[userPlay3].avatarUrl}})" size="default">
+          <button class="userinfo-avatar" style="background-image: url({{userList[play3_id].avatarUrl}})"
+            size="default">
           </button>
-          {{userList[userPlay3].nickName}}
+          {{userList[play3_id].nickName}}
         </view>
       </picker>
     </view>
 
     <view class="td">
-      <picker mode="selector" bindchange="bindPickerPlay4" value="{{userList[userPlay4]}}" range="{{userList}}"
+      <picker mode="selector" bindchange="bindPickerPlay4" value="{{userList[play4_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
-          <button  class="userinfo-avatar"
-            style="background-image: url({{userList[userPlay4].avatarUrl}})" size="default">
+          <button class="userinfo-avatar" style="background-image: url({{userList[play4_id].avatarUrl}})"
+            size="default">
           </button>
-          {{userList[userPlay4].nickName}}
+          {{userList[play4_id].nickName}}
         </view>
       </picker>
     </view>
@@ -75,16 +81,20 @@
 
   </view>
   <view class="tr">
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play1}}" bindinput="bindKeyInputPlay1" />
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play1_score}}"
+        bindinput="bindKeyInputPlay1" />
     </view>
 
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play2}}" bindinput="bindKeyInputPlay2" />
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play2_score}}"
+        bindinput="bindKeyInputPlay2" />
     </view>
 
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play3}}" bindinput="bindKeyInputPlay3" />
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play3_score}}"
+        bindinput="bindKeyInputPlay3" />
     </view>
 
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play4}}" bindinput="bindKeyInputPlay4" />
+    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play4_score}}"
+        bindinput="bindKeyInputPlay4" />
     </view>
 
     <view class="td1"><input confirm-type="next" placeholder="片数" value="{{shui}}" bindinput="bindKeyInputshui" />
@@ -92,20 +102,42 @@
   </view>
 </view>
 
+<!-- <view>
+  <button class="button" type="primary" plain="true" bindtap='insertBattleList'>锁定对阵</button>
+</view> -->
 
 <view>
-  <button type="primary" plain="true" style='margin-top: 40rpx;' bindtap='onInsert'>单场记录</button>
+  <button class="button" type="primary" plain="true" bindtap='onInsert'>单场记录</button>
 </view>
 
-<scroll-view scroll-y="true" style="height:400px" class="scroll-header">
+
+<view class="table">
+  <view class="tr">
+    <view class="tdlist">{{play1Sum}}</view>
+    <view class="tdlist">{{play2Sum}}</view>
+    <view class="tdlist ">{{play3Sum}}</view>
+    <view class="tdlist">{{play4Sum}}</view>
+    <view class="tdlist">{{shuiSum}}</view>
+    <!-- <view class="td" bindtap="upload">上传</view> -->
+  </view>
+</view>
+
+<scroll-view scroll-y="true" style="height:300px" class="scroll-header">
   <view class="table">
     <block wx:for="{{list}}" wx:if="{{list!=null}}">
       <view class="tr">
-        <view class="tdlist">{{item.date}}</view>
-        <view class="tdlist">{{item.shanjian}}</view>
-        <view class="tdlist">{{item.adai}}</view>
-        <view class="tdlist">{{item.paomian}}</view>
+        <view class="tdlist">{{item.play1_score}}</view>
+        <view class="tdlist">{{item.play2_score}}</view>
+        <view class="tdlist">{{item.play3_score}}</view>
+        <view class="tdlist">{{item.play4_score}}</view>
+        <view class="tdlist">{{item.shui}}</view>
       </view>
     </block>
   </view>
 </scroll-view>
+
+
+
+<view>
+  <button class="button" type="primary" plain="true" bindtap='onQuery'>刷新</button>
+</view>

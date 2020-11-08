@@ -117,14 +117,14 @@ Page({
   // 单击“插入数据”按钮调用该函数
   addUser: function () {
     var that = this
-    if (that.data.name == "") {
-      wx.showModal({
-        title: '错误',
-        content: "姓名不能为空",
-        showCancel: false
-      })
-      return
-    }
+    // if (that.data.name == "") {
+    //   wx.showModal({
+    //     title: '错误',
+    //     content: "姓名不能为空",
+    //     showCancel: false
+    //   })
+    //   return
+    // }
     try {
       console.log("openid" + app.globalData.openid)
       onQuery.onQuery("user", "_openid", app.globalData.openid).then(res => {
@@ -142,20 +142,17 @@ Page({
         this.test.add({
           // data 字段表示需新增的 JSON 数据
           data: {
-            name: that.data.name,
+            // name: that.data.name,
             nickName: that.data.nickName,
             avatarUrl: that.data.avatarUrl,
           },
           //  数据插入成功，调用该函数
           success: function (res) {
-            that.setData({
-
-            })
             wx.showToast({
               title: '新增用户成功',
             })
             //增加新增用户日志
-            var log = "[新增用户]nickName:" + that.data.nickName + ";name:" + that.data.name
+            var log = "[新增用户]nickName:" + that.data.nickName
             dateBase.insertLog(log)
           }
         })

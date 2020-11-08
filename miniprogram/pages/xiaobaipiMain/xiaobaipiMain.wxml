@@ -21,7 +21,7 @@
 
   <view class="uploader">
     <navigator url="../xiaobaipiAccount/xiaobaipiAccount" open-type="navigate" class="uploader-text">
-      <text>账单</text>
+      <text>账单 Account</text>
     </navigator>
   </view>
 

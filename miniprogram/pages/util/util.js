@@ -12,6 +12,18 @@ function sum(list, name) {
   return a
 }
 
+function aaa(list, name,id) {
+  var a = id
+  // console.log("..........",list[0].name)
+  list.forEach(function (item, index) {
+    if(item[name]){
+      a =  item[name]
+    }
+  })
+  console.log("aaaaaaaa是",a)
+  return a
+}
+
 function bijiao(name) {
   var msg = "请重新输入"
   if (isNaN(Number(name))) {
@@ -66,4 +78,5 @@ module.exports = {
   getOpenid: getOpenid,
   adminUser: adminUser,
   bijiao: bijiao,
+  aaa: aaa,
 }
