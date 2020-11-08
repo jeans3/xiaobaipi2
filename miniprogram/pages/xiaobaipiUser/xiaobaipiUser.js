@@ -44,7 +44,7 @@ Page({
               this.setData({
                 avatarUrl: res.userInfo.avatarUrl,
                 userInfo: res.userInfo,
-                nickName: res.userInfo.nickName,// 微信昵称
+                nickName: res.userInfo.nickName, // 微信昵称
               })
             }
           })
@@ -125,46 +125,43 @@ Page({
       })
       return
     }
-    console.log("openid" + app.globalData.openid)
-    onQuery.onQuery("user", "_id", app.globalData.openid).then(res => {
-      console.log(res.data.length)
-      if (res.data.length != 0) {
-        wx.showModal({
-          title: '错误',
-          content: "用户已存在",
-          showCancel: false
-        })
-        return
-      }
-    }
-    )
     try {
-
-      this.db = wx.cloud.database()
-      this.test = that.db.collection('user')
-      this.test.add({
-        // data 字段表示需新增的 JSON 数据
-        data: {
-          _id: app.globalData.openid,
-          name: that.data.name,
-          nickName: that.data.nickName,
-          avatarUrl: that.data.avatarUrl,
-        },
-        //  数据插入成功，调用该函数
-        success: function (res) {
-          that.setData({
-
+      console.log("openid" + app.globalData.openid)
+      onQuery.onQuery("user", "_openid", app.globalData.openid).then(res => {
+        console.log(res.data.length)
+        if (res.data.length != 0) {
+          wx.showModal({
+            title: '错误',
+            content: "用户已存在",
+            showCancel: false
           })
-          wx.showToast({
-            title: '新增用户成功',
-          })
-          //增加新增用户日志
-          var log = "[新增用户]nickName:" + that.data.nickName + ";name:" + that.data.name
-          dateBase.insertLog(log)
+          return
         }
+        this.db = wx.cloud.database()
+        this.test = that.db.collection('user')
+        this.test.add({
+          // data 字段表示需新增的 JSON 数据
+          data: {
+            name: that.data.name,
+            nickName: that.data.nickName,
+            avatarUrl: that.data.avatarUrl,
+          },
+          //  数据插入成功，调用该函数
+          success: function (res) {
+            that.setData({
+
+            })
+            wx.showToast({
+              title: '新增用户成功',
+            })
+            //增加新增用户日志
+            var log = "[新增用户]nickName:" + that.data.nickName + ";name:" + that.data.name
+            dateBase.insertLog(log)
+          }
+        })
       })
-    }
-    catch (e) {
+
+    } catch (e) {
       wx.showModal({
         title: '错误',
         content: e.message,
