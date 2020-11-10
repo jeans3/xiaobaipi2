@@ -38,13 +38,19 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    
+   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    dataBase.onQuery("user").then(res =>
+      this.setData({
+        userList: res.data
+      })
+    )
   },
 
   /**
@@ -95,58 +101,60 @@ Page({
 
   onQuery: function () {
     var date = this.data.date
-    dataBase.onQuery("user").then(res =>
-      this.setData({
-        userList: res.data
-      })
-    )
-    dataBase.onQuery("battlelist", "date", date).then(res => {
-      console.log("长度", res.data.length)
-      if (res.data.length != 0) {
-        this.setData({
-          play1_id: res.data[0].play1_id,
-          play2_id: res.data[0].play2_id,
-          play3_id: res.data[0].play3_id,
-          play4_id: res.data[0].play4_id,
-        })
-      } else {
-        this.setData({
-          play1_id: 0,
-          play2_id: 1,
-          play3_id: 2,
-          play4_id: 3,
-        })
-      }
-
-      dataBase.onQuery("single", "date", date)
-        .then(res =>
+    var changciIndex = this.data.changciIndex
+    try{
+      dataBase.onQuery("battlelist", "date", date, "changciIndex", changciIndex).then(res => {
+        console.log("长度", res.data.length)
+        if (res.data.length != 0) {
           this.setData({
-            play1Sum: util.sum(res.data, "play1_score"),
-            play2Sum: util.sum(res.data, "play2_score"),
-            play3Sum: util.sum(res.data, "play3_score"),
-            play4Sum: util.sum(res.data, "play4_score"),
-            shuiSum: util.sum(res.data, "shui"),
-            list: res.data
-          }),
-          console.log('[数据库] [查询记录] 成功: '),
-          wx.showToast({
-            title: '刷新成功',
+            play1_id: res.data[0].play1_id,
+            play2_id: res.data[0].play2_id,
+            play3_id: res.data[0].play3_id,
+            play4_id: res.data[0].play4_id,
+            changciIndex: res.data[0].changciIndex
           })
-        )
-    })
+          dataBase.onQuery("single", "date", date, "changciIndex", changciIndex)
+            .then(res =>
+              this.setData({
+                play1Sum: util.sum(res.data, "play1_score"),
+                play2Sum: util.sum(res.data, "play2_score"),
+                play3Sum: util.sum(res.data, "play3_score"),
+                play4Sum: util.sum(res.data, "play4_score"),
+                shuiSum: util.sum(res.data, "shui"),
+                list: res.data
+              }),
+              console.log('[数据库] [查询记录] 成功: '),
+              wx.showToast({
+                title: '刷新成功',
+              })
+            )
+        } else {
+          this.setData({
+            play1_id: 0,
+            play2_id: 1,
+            play3_id: 2,
+            play4_id: 3,
+          })
+          wx.showToast({
+            title: '无记录',
+          })
+          return
+        }
+      })
+    }catch{}
     console.log("集合:", this.data.list)
   },
 
   insertBattleList: function () {
     var that = this
     var date = that.data.date
-    var play1_id = that.data.play1_id
-    var play2_id = that.data.play2_id
-    var play3_id = that.data.play3_id
-    var play4_id = that.data.play4_id
-    var changciIndex = that.data.changciIndex
+    var play1_id = Number(that.data.play1_id)
+    var play2_id = Number(that.data.play2_id)
+    var play3_id = Number(that.data.play3_id)
+    var play4_id = Number(that.data.play4_id)
+    var changciIndex = Number(that.data.changciIndex)
     try {
-      dataBase.onQuery("battlelist", "date", date).then(res => {
+      dataBase.onQuery("battlelist", "date", date,"changciIndex",changciIndex).then(res => {
         console.log("长度", res.data.length)
         if (res.data.length != 0) {
           wx.showToast({
@@ -251,21 +259,21 @@ Page({
               play2_score: play2_score
             })
           }
-          if (play3_score =="") {
+          if (play3_score == "") {
             play3_score = 0 - (play1_score + play2_score + play4_score)
             this.setData({
               play3_score: play3_score
             })
           }
           if (play4_score == "") {
-            play4_score =  0 - (play1_score + play2_score + play3_score)
-            
+            play4_score = 0 - (play1_score + play2_score + play3_score)
+
             this.setData({
               play4_score: play4_score
             })
           }
           if (shui == "") {
-            shui = 0 - (play1_score + play2_score + play3_score+ play4_score)
+            shui = 0 - (play1_score + play2_score + play3_score + play4_score)
             this.setData({
               shui: shui
             })
@@ -326,7 +334,7 @@ Page({
   //判断对阵是否锁定
   bindPickerPlay: function (play_id, e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-    dataBase.onQuery("battlelist", "date", this.data.date).then(res => {
+    dataBase.onQuery("battlelist", "date", this.data.date, "changciIndex", this.data.changciIndex).then(res => {
       console.log("长度", res.data.length)
       if (res.data.length != 0) {
         this.setData({
@@ -373,6 +381,7 @@ Page({
     this.setData({
       changciIndex: e.detail.value
     })
+    this.onQuery()
   },
 
   //获取输入的play1片数
