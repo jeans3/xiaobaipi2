@@ -27,8 +27,8 @@
       <picker mode="selector" bindchange="bindPickerPlay1" value="{{userList[play1_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
-          <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
-            style="background-image: url({{userList[play1_id].avatarUrl}})" size="default">
+          <button class="userinfo-avatar" style="background-image: url({{userList[play1_id].avatarUrl}})"
+            size="default">
           </button>
           {{userList[play1_id].nickName}}
         </view>
@@ -118,20 +118,20 @@
     <view class="tdlist">{{play3Sum}}</view>
     <view class="tdlist">{{play4Sum}}</view>
     <view class="tdlist">{{shuiSum}}</view>
-    <view class="tdMenu">上传</view>
+    <view class="tdMenu" bindtap="upload">上传</view>
     <!-- <view class="td" bindtap="upload">上传</view> -->
   </view>
 
-  <scroll-view  scroll-y="true" style="height:220px" class="scroll-header">
+  <scroll-view scroll-y="true" style="height:220px" class="scroll-header">
     <block wx:for="{{list}}" wx:if="{{list!=null}}">
       <view class="tr">
-        <view class="tdMenu">{{item.changciIndex}}</view>
+        <view class="tdMenu">{{index+1}}</view>
         <view class="tdlist">{{item.play1_score}}</view>
         <view class="tdlist">{{item.play2_score}}</view>
         <view class="tdlist">{{item.play3_score}}</view>
         <view class="tdlist">{{item.play4_score}}</view>
         <view class="tdlist">{{item.shui}}</view>
-        <view class="tdMenu">删除</view>
+        <view class="tdMenu" bindtap="delete" data-id="{{item._id}}">删除</view>
       </view>
     </block>
   </scroll-view>

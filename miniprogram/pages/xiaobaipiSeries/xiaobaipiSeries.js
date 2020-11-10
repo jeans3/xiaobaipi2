@@ -1,4 +1,5 @@
 // miniprogram/pages/series/series.js
+const dataBase = require("../util/dataBase")
 
 Page({
 
@@ -6,7 +7,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    userList: [{}],
+    list: [{}],
   },
 
   /**
@@ -20,7 +22,11 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-
+    dataBase.onQuery("user").then(res =>
+      this.setData({
+        userList: res.data
+      })
+    )
   },
 
   /**
@@ -63,5 +69,13 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  onQuery: function () {
+    dataBase.onQuery("series").then(res => {
+      this.setData({
+        list: res.data,
+      })
+    })
   }
 })

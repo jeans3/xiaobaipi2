@@ -1,2 +1,24 @@
 <!--miniprogram/pages/xiaobaipiSeries/xiaobaipiSeries.wxml-->
-<text>miniprogram/pages/series/series.wxml</text>
+<view class="table">
+  <scroll-view scroll-x="true"  class="scroll-header">
+    <block wx:for="{{list}}" wx:for-item="userList" >
+      <view class="tr">
+        <view class="tdUser">
+          <!-- <button class="userinfo-avatar" style="background-image: url({{userList.avatarUrl}})"
+            size="default">
+          </button> -->
+          {{userList.play1_id}}</view>
+      </view>
+      <view class="tr">
+        <view class="tdUser">{{userList.play1Sum}}</view>
+      </view>
+      <view class="tr">
+        <view class="tdUser">{{userList.play2Sum}}</view>
+      </view>
+    </block>
+  </scroll-view>
+</view>
+
+<button class="btn1" type="primary" plain="trye" bindtap="onQuery">
+  刷新
+</button>

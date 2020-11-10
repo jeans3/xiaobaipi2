@@ -1,1 +1,38 @@
 /* miniprogram/pages/series/series.wxss */
+
+
+.userinfo-avatar[size] {
+  width: 25px;
+}
+
+
+.userinfo-avatar:after {
+  border: none;
+}
+
+.table {
+  border: 1px solid rgb(8, 8, 8);
+  /* margin-top: 30px; */
+  font-size: 28rpx;
+  background: #fff;
+  border-right: none;
+}
+
+.tr {
+  /* border: 1px solid rgb(8, 8, 8); */
+  display: flex;
+  justify-content: space-between;
+}
+
+.tdUser {
+  text-align: center;
+  border: 1px solid rgb(8, 8, 8);
+  display: inline-block;
+  border-left: none;
+  border-bottom: none;
+  padding: 10rpx 1%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  height: auto;
+  width: 30%;
+}

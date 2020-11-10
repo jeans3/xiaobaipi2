@@ -14,21 +14,8 @@ function onQuery(databaseName, selectName, selectShuxing, selectName1, selectShu
 }
 
 function onRemove(databaseName, selectId) {
-  db.collection(databaseName).doc(selectId).remove({
-    success: res => {
-      console.log("删除成功", res)
-      wx.showToast({
-        title: '删除成功',
-      })
-    },
-    fail: err => {
-      wx.showModal({
-        content: "删除失败",
-        showCancel: false
-      })
-      console.error('[数据库] [删除记录] 失败：', err)
-    }
-  })
+  // console.log("语句",db.collection(databaseName).doc(selectId).remove())
+  db.collection(databaseName).doc(selectId).remove()
 }
 
 function insertLog(log) {
