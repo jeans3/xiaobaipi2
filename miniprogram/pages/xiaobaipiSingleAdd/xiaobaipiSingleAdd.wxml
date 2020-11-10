@@ -21,10 +21,9 @@
       </picker>
     </view>
   </view>
-
   <view class="tr">
-
-    <view class="td">
+    <view class="tdUserMenu"></view>
+    <view class="tdUser">
       <picker mode="selector" bindchange="bindPickerPlay1" value="{{userList[play1_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
@@ -36,7 +35,7 @@
       </picker>
     </view>
 
-    <view class="td">
+    <view class="tdUser">
       <picker mode="selector" bindchange="bindPickerPlay2" value="{{userList[play2_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
@@ -48,7 +47,7 @@
       </picker>
     </view>
 
-    <view class="td">
+    <view class="tdUser">
       <picker mode="selector" bindchange="bindPickerPlay3" value="{{userList[play3_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
@@ -60,7 +59,7 @@
       </picker>
     </view>
 
-    <view class="td">
+    <view class="tdUser">
       <picker mode="selector" bindchange="bindPickerPlay4" value="{{userList[play4_id]}}" range="{{userList}}"
         range-key="{{'nickName'}}">
         <view class="picker">
@@ -72,71 +71,73 @@
       </picker>
     </view>
 
-    <view class="td">
+    <view class="tdUser">
       <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
         style="background-image: url({{shuiavatarUrl}})" size="default">
       </button>
       水
     </view>
+    <view class="tdUserMenu" bindtap='insertBattleList'>锁定对阵表</view>
 
   </view>
   <view class="tr">
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play1_score}}"
+    <view class="tdUserMenu" bindtap="qingchu">清除</view>
+    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{play1_score}}"
         bindinput="bindKeyInputPlay1" />
     </view>
 
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play2_score}}"
+    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{play2_score}}"
         bindinput="bindKeyInputPlay2" />
     </view>
 
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play3_score}}"
+    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{play3_score}}"
         bindinput="bindKeyInputPlay3" />
     </view>
 
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{play4_score}}"
+    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{play4_score}}"
         bindinput="bindKeyInputPlay4" />
     </view>
 
-    <view class="td1"><input confirm-type="next" placeholder="片数" value="{{shui}}" bindinput="bindKeyInputshui" />
+    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{shui}}" bindinput="bindKeyInputshui" />
+    </view>
+    <view class="tdUserMenu" bindtap="onInsert">新增</view>
+  </view>
+
+  <view class="tr">
+    <view class="tdButton">
+      <view>
+        单场记录
+      </view>
     </view>
   </view>
-</view>
 
-<view>
-  <button class="button" type="primary" plain="true" bindtap='onInsert'>新增记录</button>
-</view>
-
-<view>
-  <button class="button" type="primary" plain="true" bindtap='insertBattleList'>锁定对阵</button>
-</view>
-
-<view class="table">
   <view class="tr">
+    <view class="tdMenu">合计</view>
     <view class="tdlist">{{play1Sum}}</view>
     <view class="tdlist">{{play2Sum}}</view>
-    <view class="tdlist ">{{play3Sum}}</view>
+    <view class="tdlist">{{play3Sum}}</view>
     <view class="tdlist">{{play4Sum}}</view>
     <view class="tdlist">{{shuiSum}}</view>
+    <view class="tdMenu">上传</view>
     <!-- <view class="td" bindtap="upload">上传</view> -->
   </view>
-</view>
 
-<scroll-view scroll-y="true" style="height:250px" class="scroll-header">
-  <view class="table">
+  <scroll-view  scroll-y="true" style="height:220px" class="scroll-header">
     <block wx:for="{{list}}" wx:if="{{list!=null}}">
       <view class="tr">
+        <view class="tdMenu">{{item.changciIndex}}</view>
         <view class="tdlist">{{item.play1_score}}</view>
         <view class="tdlist">{{item.play2_score}}</view>
         <view class="tdlist">{{item.play3_score}}</view>
         <view class="tdlist">{{item.play4_score}}</view>
         <view class="tdlist">{{item.shui}}</view>
+        <view class="tdMenu">删除</view>
       </view>
     </block>
+  </scroll-view>
+  <view class="tr">
+    <view class="tdButton">
+      <button type="primary" plain="true" bindtap='onQuery'>刷新</button>
+    </view>
   </view>
-</scroll-view>
-
-
-
-<view>
-  <button class="button" type="primary" plain="true" bindtap='onQuery'>刷新</button>
 </view>

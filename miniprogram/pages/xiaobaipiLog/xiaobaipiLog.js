@@ -1,4 +1,4 @@
-const dateBase = require("../util/dateBase")
+const dataBase = require("../util/dataBase")
 
 // miniprogram/pages/xiaobaipiLog/xiaobaipiLog.js
 Page({
@@ -23,7 +23,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    dateBase.onQuery("log")
+    dataBase.onQuery("log")
       .then(res =>
         this.setData({
           list: res.data

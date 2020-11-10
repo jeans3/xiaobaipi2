@@ -1,8 +1,7 @@
 // miniprogram/pages/xiaobaipiUser/xiaobaipiUser.js
 var app = getApp()
 var getOpenid = require("../util/util")
-var onQuery = require("../util/dateBase")
-const dateBase = require("../util/dateBase")
+const dataBase = require("../util/dataBase")
 var dateFormate = require("../util/dateFormate")
 
 Page({
@@ -127,7 +126,7 @@ Page({
     // }
     try {
       console.log("openid" + app.globalData.openid)
-      onQuery.onQuery("user", "_openid", app.globalData.openid).then(res => {
+      dataBase.onQuery("user", "_openid", app.globalData.openid).then(res => {
         console.log(res.data.length)
         if (res.data.length != 0) {
           wx.showModal({

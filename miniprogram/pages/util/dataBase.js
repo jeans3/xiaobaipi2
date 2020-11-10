@@ -3,7 +3,7 @@ const dateFormate = require("./dateFormate")
 //return的是res原始数据
 const db = wx.cloud.database()
 function onQuery(databaseName, selectName, selectShuxing) {
-  console.log(db.collection(databaseName).where({
+  console.log("查询",db.collection(databaseName).where({
     [selectName]: selectShuxing
   }).get())
   return db.collection(databaseName).where({

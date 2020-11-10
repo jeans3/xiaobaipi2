@@ -1,6 +1,5 @@
-const dateBase = require("../util/dateBase")
 // miniprogram/pages/singleAdd/singleAdd.js
-var database = require("../util/dateBase")
+const dataBase = require("../util/dataBase")
 var dateFormate = require("../util/dateFormate")
 const util = require("../util/util")
 
@@ -15,7 +14,7 @@ Page({
 
     }],
     date: dateFormate.formatDate(new Date()),
-    changci: ["一", "二", "三", "四", ],
+    changci: ["一", "二", "三", "四", "五", "六", "七", "八", "九"],
     changciIndex: 0,
     play1_id: 0,
     play2_id: 1,
@@ -95,12 +94,13 @@ Page({
   },
 
   onQuery: function () {
-    database.onQuery("user").then(res =>
+    var date = this.data.date
+    dataBase.onQuery("user").then(res =>
       this.setData({
         userList: res.data
       })
     )
-    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
+    dataBase.onQuery("battlelist", "date", date).then(res => {
       console.log("长度", res.data.length)
       if (res.data.length != 0) {
         this.setData({
@@ -117,8 +117,8 @@ Page({
           play4_id: 3,
         })
       }
-      var date = dateFormate.formatTime(new Date(this.data.date), "M-D")
-      database.onQuery("single", "date", date)
+
+      dataBase.onQuery("single", "date", date)
         .then(res =>
           this.setData({
             play1Sum: util.sum(res.data, "play1_score"),
@@ -139,8 +139,14 @@ Page({
 
   insertBattleList: function () {
     var that = this
+    var date = that.data.date
+    var play1_id = that.data.play1_id
+    var play2_id = that.data.play2_id
+    var play3_id = that.data.play3_id
+    var play4_id = that.data.play4_id
+    var changciIndex = that.data.changciIndex
     try {
-      dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
+      dataBase.onQuery("battlelist", "date", date).then(res => {
         console.log("长度", res.data.length)
         if (res.data.length != 0) {
           wx.showToast({
@@ -148,11 +154,6 @@ Page({
           })
           return
         } else {
-          var date = dateFormate.formatTime(new Date(that.data.date), "M-D")
-          var play1_id = that.data.play1_id
-          var play2_id = that.data.play2_id
-          var play3_id = that.data.play3_id
-          var play4_id = that.data.play4_id
           this.db = wx.cloud.database()
           this.test = that.db.collection('battlelist')
           this.test.add({
@@ -162,6 +163,7 @@ Page({
               play2_id: play2_id,
               play3_id: play3_id,
               play4_id: play4_id,
+              changciIndex: changciIndex,
               date: date
             },
             //  数据插入成功，调用该函数
@@ -184,25 +186,46 @@ Page({
     }
   },
 
+  qingchu: function () {
+    this.setData({
+      play1_score: "",
+      play2_score: "",
+      play3_score: "",
+      play4_score: "",
+      shui: "",
+    })
+  },
+
   onInsert: function () {
     var that = this
+    var play1_score = util.bijiao(that.data.play1_score)
+    var play2_score = util.bijiao(that.data.play2_score)
+    var play3_score = util.bijiao(that.data.play3_score)
+    var play4_score = util.bijiao(that.data.play4_score)
+    var play1_nickName = that.data.userList[that.data.play1_id].nickName
+    var play2_nickName = that.data.userList[that.data.play2_id].nickName
+    var play3_nickName = that.data.userList[that.data.play3_id].nickName
+    var play4_nickName = that.data.userList[that.data.play4_id].nickName
+    var play1_id = that.data.play1_id
+    var play2_id = that.data.play2_id
+    var play3_id = that.data.play3_id
+    var play4_id = that.data.play4_id
+    var shui = util.bijiao(that.data.shui)
+    var date = that.data.date
+    var changciIndex = that.data.changciIndex
     try {
-      var play1_score = util.bijiao(that.data.play1_score)
-      var play2_score = util.bijiao(that.data.play2_score)
-      var play3_score = util.bijiao(that.data.play3_score)
-      var play4_score = util.bijiao(that.data.play4_score)
-      var play1_id = that.data.play1_id
-      var play2_id = that.data.play2_id
-      var play3_id = that.data.play3_id
-      var play4_id = that.data.play4_id
-      var shui = util.bijiao(that.data.shui)
-      var date = dateFormate.formatTime(new Date(that.data.date), "M-D")
-      var changci = that.data.changci
-      if (play1_score == "错误" || play2_score == "错误" || play3_score == "错误" || play4_score == "错误" || shui == "错误") {
+      if (play1_score == "请重新输入" || play2_score == "请重新输入" || play3_score == "请重新输入" || play4_score == "请重新输入" || shui == "请重新输入") {
         wx.showModal({
           title: '错误',
           content: '只能输入数字',
           showCancel: false,
+        })
+        this.setData({
+          play1_score: "",
+          play2_score: "",
+          play3_score: "",
+          play4_score: "",
+          shui: "",
         })
         return
       }
@@ -211,16 +234,47 @@ Page({
         //  显示错误对话框
         wx.showModal({
           title: '错误',
-          content: "合计不等于0",
+          content: "合计不等于0,已自动计算",
           showCancel: false
         })
+
+        if (play1_score == "" || play2_score == "" || play3_score == "" || play4_score == "" || shui == "") {
+          if (play1_score == "") {
+            play1_score = 0 - (play2_score + play3_score + play4_score)
+            this.setData({
+              play1_score: play1_score
+            })
+          }
+          if (play2_score == "") {
+            play2_score = 0 - (play1_score + play3_score + play4_score)
+            this.setData({
+              play2_score: play2_score
+            })
+          }
+          if (play3_score =="") {
+            play3_score = 0 - (play1_score + play2_score + play4_score)
+            this.setData({
+              play3_score: play3_score
+            })
+          }
+          if (play4_score == "") {
+            play4_score =  0 - (play1_score + play2_score + play3_score)
+            
+            this.setData({
+              play4_score: play4_score
+            })
+          }
+          if (shui == "") {
+            shui = 0 - (play1_score + play2_score + play3_score+ play4_score)
+            this.setData({
+              shui: shui
+            })
+          }
+        }
+
         return
       }
 
-      var play1_nickName = that.data.userList[that.data.play1_id].nickName
-      var play2_nickName = that.data.userList[that.data.play2_id].nickName
-      var play3_nickName = that.data.userList[that.data.play3_id].nickName
-      var play4_nickName = that.data.userList[that.data.play4_id].nickName
 
       this.db = wx.cloud.database()
       this.test = that.db.collection('single')
@@ -239,6 +293,7 @@ Page({
           play2_score: play2_score,
           play3_score: play3_score,
           play4_score: play4_score,
+          changciIndex: changciIndex,
           shui: shui,
           date: date
         },
@@ -267,79 +322,40 @@ Page({
 
   },
 
-  bindPickerPlay1: function (e) {
+
+  //判断对阵是否锁定
+  bindPickerPlay: function (play_id, e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
-    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
+    dataBase.onQuery("battlelist", "date", this.data.date).then(res => {
       console.log("长度", res.data.length)
       if (res.data.length != 0) {
         this.setData({
-          play1_id: res.data[0].play1_id,
+          // [play_id]: res.data[0].play_id,
         })
         wx.showToast({
           title: '已锁定对阵',
         })
       } else {
         this.setData({
-          play1_id: e.detail.value
+          [play_id]: e.detail.value
         })
       }
     })
+  },
+
+  bindPickerPlay1: function (e) {
+    this.bindPickerPlay("play1_id", e)
   },
 
   bindPickerPlay2: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
-      console.log("长度", res.data.length)
-      if (res.data.length != 0) {
-        this.setData({
-          play2_id: res.data[0].play2_id,
-        })
-        wx.showToast({
-          title: '已锁定对阵',
-        })
-      } else {
-        this.setData({
-          play2_id: e.detail.value
-        })
-      }
-    })
+    this.bindPickerPlay("play2_id", e)
   },
   bindPickerPlay3: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
-      console.log("长度", res.data.length)
-      if (res.data.length != 0) {
-        this.setData({
-          play3_id: res.data[0].play3_id,
-        })
-        wx.showToast({
-          title: '已锁定对阵',
-        })
-      } else {
-        this.setData({
-          play3_id: e.detail.value
-        })
-      }
-    })
+    this.bindPickerPlay("play3_id", e)
   },
 
   bindPickerPlay4: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
-    dateBase.onQuery("battlelist", "date", dateFormate.formatTime(new Date(this.data.date), "M-D")).then(res => {
-      console.log("长度", res.data.length)
-      if (res.data.length != 0) {
-        this.setData({
-          play4_id: res.data[0].play4_id,
-        })
-        wx.showToast({
-          title: '已锁定对阵',
-        })
-      } else {
-        this.setData({
-          play4_id: e.detail.value
-        })
-      }
-    })
+    this.bindPickerPlay("play4_id", e)
   },
 
   //获取日期控件的值
