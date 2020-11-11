@@ -1,19 +1,47 @@
 <!--miniprogram/pages/xiaobaipiSeries/xiaobaipiSeries.wxml-->
+
 <view class="table">
-  <scroll-view scroll-x="true"  class="scroll-header">
-    <block wx:for="{{list}}" wx:for-item="userList" >
-      <view class="tr">
-        <view class="tdUser">
-          <!-- <button class="userinfo-avatar" style="background-image: url({{userList.avatarUrl}})"
-            size="default">
-          </button> -->
-          {{userList.play1_id}}</view>
+  <scroll-view scroll-x="true" class="scroll-header">
+    <view class="tr">
+      <view class="tdUser" wx:for="{{userList}}" wx:for-item="userList" wx:for-index="userListIndex">
+        <view class="userinfo-avatar" style="background-image: url({{userList.avatarUrl}})" size="default"></view>
+        {{userList.nickName}}
       </view>
-      <view class="tr">
-        <view class="tdUser">{{userList.play1Sum}}</view>
-      </view>
-      <view class="tr">
-        <view class="tdUser">{{userList.play2Sum}}</view>
+    </view>
+
+    <view class="tr" wx:for="{{list}}" wx:for-item="list" wx:for-index="index">
+        <view class="tdUser">{{list.play1Sum}}</view>
+        <view class="tdUser">{{list.play2Sum}}</view>
+        <view class="tdUser">{{list.play3Sum}}</view>
+        <view class="tdUser">{{list.play4Sum}}</view>
+    </view>
+  </scroll-view>
+  <button class="btn1" type="primary" plain="trye" bindtap="onQuery">
+    刷新
+  </button>
+</view>
+
+<!-- <view class="table">
+  <view class="trlist">
+    <view class="tdlist">昵称</view>
+    <view class="tdUser">日期</view>
+  </view>
+  <scroll-view scroll-x="true" class="scroll-header">
+
+    <view class="tr">
+      <view class="tdUser">合计</view>
+      <view class="tdUser">合计</view>
+    </view>
+
+
+    <block wx:for="{{list}}" wx:for-item="list" wx:for-index="index">
+      <view class="trlist">
+        <view class="tdUserMenu">{{list.date}}</view>
+        <view class="tdUser">{{list.play1Sum}}</view>
+        <view class="tdUser">{{list.play2Sum}}</view>
+        <view class="tdUser">{{list.play3Sum}}</view>
+        <view class="tdUser">{{list.play4Sum}}</view>
+        <view class="tdUser"></view>
       </view>
     </block>
   </scroll-view>
@@ -21,4 +49,4 @@
 
 <button class="btn1" type="primary" plain="trye" bindtap="onQuery">
   刷新
-</button>
+</button> -->

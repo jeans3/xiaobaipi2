@@ -18,21 +18,18 @@
   border-right: none;
 }
 
-.tr {
-  /* border: 1px solid rgb(8, 8, 8); */
+.tr{
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
 }
 
-.tdUser {
+.tdUser{
   text-align: center;
   border: 1px solid rgb(8, 8, 8);
-  display: inline-block;
   border-left: none;
   border-bottom: none;
   padding: 10rpx 1%;
-  padding-top: 5%;
-  padding-bottom: 5%;
   height: auto;
-  width: 30%;
+  width: 18%;
 }
