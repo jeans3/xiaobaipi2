@@ -3,6 +3,16 @@
 <view class="table">
   <scroll-view scroll-x="true" class="scroll-header">
     <view class="tr">
+      <view class="tddate">
+        <view class="date" size="default"></view>
+      </view>
+
+      <view class="tdUser">
+        <view class="userinfo-avatar" style="background-image: url({{shuiavatarUrl}})" size="default">
+        </view>
+        水
+      </view>
+
       <view class="tdUser" wx:for="{{userList}}" wx:for-item="userList" wx:for-index="userListIndex">
         <view class="userinfo-avatar" style="background-image: url({{userList.avatarUrl}})" size="default"></view>
         {{userList.nickName}}
@@ -10,43 +20,71 @@
     </view>
 
     <view class="tr" wx:for="{{list}}" wx:for-item="list" wx:for-index="index">
-        <view class="tdUser">{{list.play1Sum}}</view>
-        <view class="tdUser">{{list.play2Sum}}</view>
-        <view class="tdUser">{{list.play3Sum}}</view>
-        <view class="tdUser">{{list.play4Sum}}</view>
-    </view>
-  </scroll-view>
-  <button class="btn1" type="primary" plain="trye" bindtap="onQuery">
-    刷新
-  </button>
-</view>
-
-<!-- <view class="table">
-  <view class="trlist">
-    <view class="tdlist">昵称</view>
-    <view class="tdUser">日期</view>
-  </view>
-  <scroll-view scroll-x="true" class="scroll-header">
-
-    <view class="tr">
-      <view class="tdUser">合计</view>
-      <view class="tdUser">合计</view>
-    </view>
-
-
-    <block wx:for="{{list}}" wx:for-item="list" wx:for-index="index">
-      <view class="trlist">
-        <view class="tdUserMenu">{{list.date}}</view>
-        <view class="tdUser">{{list.play1Sum}}</view>
-        <view class="tdUser">{{list.play2Sum}}</view>
-        <view class="tdUser">{{list.play3Sum}}</view>
-        <view class="tdUser">{{list.play4Sum}}</view>
-        <view class="tdUser"></view>
+      <view class="tddate">
+        <view class="date" size="default">
+          <navigator url="../xiaobaipiSingleAdd/xiaobaipiSingleAdd?date={{list.date}}&changciIndex={{list.changciIndex}}" open-type="navigate">{{list.date}}</navigator>
+          </view>
       </view>
-    </block>
+      <view class="tdUser">
+        <view class="tdlist" />
+        {{list.shuiSum}}
+      </view>
+      <view class="tdUser">
+        <view class="tdlist" />
+        {{list.player_id_0}}
+      </view>
+      <view class="tdUser">
+        <view class="tdlist" />
+        {{list.player_id_1}}
+      </view>
+      <view class="tdUser">
+        <view class="tdlist" />
+        {{list.player_id_2}}
+      </view>
+      <view class="tdUser">
+        <view class="tdlist" />
+        {{list.player_id_3}}
+      </view>
+      <view class="tdUser" wx:if="{{list.player_id_4!=null}}">
+        <view class="tdlist" />
+        {{list.player_id_4}}
+      </view>
+      <view class="tdUser" wx:if="{{list.player_id_5!=null}}">
+        <view class="tdlist" />
+        {{list.player_id_5}}
+      </view>
+      <view class="tdUser" wx:if="{{list.player_id_6!=null}}">
+        <view class="tdlist" />
+        {{list.player_id_6}}
+      </view>
+    </view>
+    <view class="tr" >
+      <view class="tddate" style="background-color:red">
+        <view class="date" size="default">合计</view>
+      </view>
+      <view class="tdUser" style="background-color:red">
+        <view class="tdlist" />
+        {{shuiSum}}
+      </view>
+      <view class="tdUser" style="background-color:red">
+        <view class="tdlist" />
+        {{p0}}
+      </view>
+      <view class="tdUser" style="background-color:red">
+        <view class="tdlist" />
+        {{p1}}
+      </view>
+      <view class="tdUser" style="background-color:red">
+        <view class="tdlist" />
+        {{p2}}
+      </view>
+      <view class="tdUser" style="background-color:red">
+        <view class="tdlist" />
+        {{p3}}
+      </view>
+    </view>
   </scroll-view>
 </view>
-
-<button class="btn1" type="primary" plain="trye" bindtap="onQuery">
+<button class="button" type="primary" plain="trye" bindtap="onQuery">
   刷新
-</button> -->
+</button>

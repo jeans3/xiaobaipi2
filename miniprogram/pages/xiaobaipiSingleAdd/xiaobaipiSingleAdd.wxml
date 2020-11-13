@@ -21,7 +21,7 @@
       </picker>
     </view>
   </view>
-  <view class="tr">
+  <view class="tr" style="background-color:{{user_color}}">
     <view class="tdUserMenu"></view>
     <view class="tdUser">
       <picker mode="selector" bindchange="bindPickerPlay1" value="{{userList[play1_id]}}" range="{{userList}}"
@@ -72,8 +72,7 @@
     </view>
 
     <view class="tdUser">
-      <button open-type="getUserInfo" bindgetuserinfo="onGetUserInfo" class="userinfo-avatar"
-        style="background-image: url({{shuiavatarUrl}})" size="default">
+      <button class="userinfo-avatar" style="background-image: url({{shuiavatarUrl}})" size="default">
       </button>
       水
     </view>

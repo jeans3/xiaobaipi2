@@ -6,9 +6,10 @@ function add:遍历数组 合计
 function sum(list, name) {
   var a = 0
   list.forEach(function (item, index) {
-    a = a + Number(item[name])
+    if(item[name]!=null){
+      a = a + Number(item[name])
+    }
   })
-
   return a
 }
 

@@ -133,7 +133,7 @@ Page({
         if (res.data.length != 0) {
           wx.showModal({
             title: '错误',
-            content: "用户已存在",
+            content: "索引已存在" + player_id,
             showCancel: false
           })
           this.setData({
@@ -142,7 +142,7 @@ Page({
           return
         }
         dataBase.onQuery("user", "_openid", app.globalData.openid).then(res1 => {
-          console.log("openid长度",res1.data.length)
+          console.log("openid长度", res1.data.length)
           if (res1.data.length != 0) {
             wx.showModal({
               title: '错误',
@@ -153,7 +153,7 @@ Page({
               player_id: player_id + 1
             })
             return
-          }else{
+          } else {
             this.db = wx.cloud.database()
             this.test1 = that.db.collection('user')
             this.test1.add({
@@ -175,7 +175,7 @@ Page({
               }
             })
             this.setData({
-              player_id : 0,
+              player_id: 0,
             })
           }
         })

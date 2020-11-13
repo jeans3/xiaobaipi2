@@ -2,7 +2,11 @@
 
 
 .userinfo-avatar[size] {
-  width: 25px;
+  width: 40px;
+}
+
+.date{
+  width: 87px;
 }
 
 
@@ -12,7 +16,7 @@
 
 .table {
   border: 1px solid rgb(8, 8, 8);
-  /* margin-top: 30px; */
+  margin-top: 50px;
   font-size: 28rpx;
   background: #fff;
   border-right: none;
@@ -24,6 +28,17 @@
   flex-wrap: nowrap;
 }
 
+
+.tddate{
+  text-align: center;
+  border: 1px solid rgb(8, 8, 8);
+  border-left: none;
+  border-bottom: none;
+  padding: 10rpx 1%;
+  height: auto;
+  width: 23%;
+}
+
 .tdUser{
   text-align: center;
   border: 1px solid rgb(8, 8, 8);
@@ -32,4 +47,13 @@
   padding: 10rpx 1%;
   height: auto;
   width: 18%;
+}
+
+.tdlist{
+  width: 150px;
+}
+
+.button{
+  margin-top: 100rpx;
+  margin-bottom: 25rpx;
 }

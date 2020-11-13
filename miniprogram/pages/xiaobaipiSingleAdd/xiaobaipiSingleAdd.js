@@ -1,7 +1,11 @@
+const {
+  onQuery
+} = require("../util/dataBase")
 // miniprogram/pages/singleAdd/singleAdd.js
 const dataBase = require("../util/dataBase")
 var dateFormate = require("../util/dateFormate")
 const util = require("../util/util")
+var app = getApp()
 
 Page({
 
@@ -9,9 +13,10 @@ Page({
    * 页面的初始数据
    */
   data: {
-    shuiavatarUrl: '../index/user-unlogin.png',
+    shuiavatarUrl: "'https://thirdwx.qlogo.cn/mmopen/vi_32/4lxZEwLUBZkHKp4d013libuJQ5DYqgAUdEatq4xGQWkSqnCf5WDG9CIibp4CamRI79lllZlUY3j1S0ga2suHLeGQ/132'",
     list: [{}],
     userList: [{}],
+    user_color: "",
     userInfo: {},
     requestResult: '',
     date: dateFormate.formatDate(new Date()),
@@ -37,7 +42,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    util.getOpenid()
+    if(options.date!=null&&options.changciIndex!=null){
+      this.setData({
+        date: options.date,
+        changciIndex: options.changciIndex
+      })
+    }
+    console.log(this.data.date)
   },
 
   /**
@@ -102,19 +114,20 @@ Page({
     // if (user.adminUser(app.globalData.openid) == false) {
     //   return
     // }
+    var play1_id = that.data.userList[that.data.play1_id].player_id
+    var play2_id = that.data.userList[that.data.play2_id].player_id
+    var play3_id = that.data.userList[that.data.play3_id].player_id
+    var play4_id = that.data.userList[that.data.play4_id].player_id
     that.db = wx.cloud.database()
     that.season = that.db.collection('series')
     that.season.add({
       // data 字段表示需新增的 JSON 数据
       data: {
-        play1_id: that.data.play1_id,
-        play2_id: that.data.play2_id,
-        play3_id: that.data.play3_id,
-        play4_id: that.data.play4_id,
-        play1Sum: that.data.play1Sum,
-        play2Sum: that.data.play2Sum,
-        play3Sum: that.data.play3Sum,
-        play4Sum: that.data.play4Sum,
+        ["player_id_" + play1_id]: that.data.play1Sum,
+        ["player_id_" + play2_id]: that.data.play2Sum,
+        ["player_id_" + play3_id]: that.data.play3Sum,
+        ["player_id_" + play4_id]: that.data.play4Sum,
+        changciIndex: that.data.changciIndex,
         shuiSum: that.data.shuiSum,
         date: that.data.date,
       },
@@ -134,10 +147,16 @@ Page({
   delete: function (res) {
     var id = res.currentTarget.dataset.id
     var that = this
-    try {
-      dataBase.onRemove("single", id)
-      that.onQuery()
-    } catch {}
+    if (util.adminUser(app.globalData.openid)) {
+      if (id) {
+        dataBase.onRemove("single", id)
+        that.onQuery()
+      } else {
+        wx.showToast({
+          title: '无记录可删，请先创建一个记录',
+        })
+      }
+    }
   },
 
   onQuery: function () {
@@ -152,6 +171,7 @@ Page({
             play2_id: res.data[0].play2_id,
             play3_id: res.data[0].play3_id,
             play4_id: res.data[0].play4_id,
+            user_color: "yellow",
             changciIndex: res.data[0].changciIndex
           })
           dataBase.onQuery("single", "date", date, "changciIndex", changciIndex)
@@ -180,6 +200,7 @@ Page({
             play3Sum: 0,
             play4Sum: 0,
             shuiSum: 0,
+            user_color: "",
             list: [{}]
           })
           wx.showToast({
@@ -205,7 +226,7 @@ Page({
         console.log("长度", res.data.length)
         if (res.data.length != 0) {
           wx.showToast({
-            title: '已存在',
+            title: '对阵已锁定',
           })
           return
         } else {
@@ -226,10 +247,10 @@ Page({
               wx.showToast({
                 title: '锁定成功',
               })
-
             }
           })
         }
+        this.onQuery()
       })
 
     } catch (e) {
