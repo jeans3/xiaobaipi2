@@ -81,24 +81,47 @@
   </view>
   <view class="tr">
     <view class="tdUserMenu" bindtap="qingchu">清除</view>
-    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{play1_score}}"
-        bindinput="bindKeyInputPlay1" />
+
+    <view class="tdUser">
+      <view bindtap="modalinput1">片数</view>
+      {{play1_score}}
+      <modal hidden="{{hiddenmodalput1}}" title="player1" no-cancel="true" confirm-text="提交" bindconfirm="confirm1">
+        <input placeholder="片数" value="{{play1_score}}" bindinput="bindKeyInputPlay1" auto-focus="true" />
+      </modal>
     </view>
 
-    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{play2_score}}"
-        bindinput="bindKeyInputPlay2" />
+    <view class="tdUser">
+      <view bindtap="modalinput2">片数</view>
+      {{play2_score}}
+      <modal hidden="{{hiddenmodalput2}}" title="player2" no-cancel="true" confirm-text="提交" bindconfirm="confirm2">
+        <input placeholder="片数" value="{{play2_score}}" bindinput="bindKeyInputPlay2" auto-focus="true" />
+      </modal>
     </view>
 
-    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{play3_score}}"
-        bindinput="bindKeyInputPlay3" />
+    <view class="tdUser">
+      <view bindtap="modalinput3">片数</view>
+      {{play3_score}}
+      <modal hidden="{{hiddenmodalput3}}" title="player3" no-cancel="true" confirm-text="提交" bindconfirm="confirm3">
+        <input placeholder="片数" value="{{play3_score}}" bindinput="bindKeyInputPlay3" auto-focus="true" />
+      </modal>
     </view>
 
-    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{play4_score}}"
-        bindinput="bindKeyInputPlay4" />
+    <view class="tdUser">
+      <view bindtap="modalinput4">片数</view>
+      {{play4_score}}
+      <modal hidden="{{hiddenmodalput4}}" title="player4" no-cancel="true" confirm-text="提交" bindconfirm="confirm4">
+        <input placeholder="片数" value="{{play4_score}}" bindinput="bindKeyInputPlay4" auto-focus="true" />
+      </modal>
     </view>
 
-    <view class="tdUser"><input confirm-type="next" placeholder="片数" value="{{shui}}" bindinput="bindKeyInputshui" />
+    <view class="tdUser">
+      <view bindtap="modalinputshui">片数</view>
+      {{shui}}
+      <modal hidden="{{hiddenmodalputshui}}" title="水" no-cancel="true" confirm-text="提交" bindconfirm="confirmshui">
+        <input placeholder="片数" value="{{shui}}" bindinput="bindKeyInputshui" auto-focus="true" />
+      </modal>
     </view>
+
     <view class="tdUserMenu" bindtap="onInsert">新增</view>
   </view>
 
@@ -110,7 +133,7 @@
     </view>
   </view>
 
-  <view class="tr">
+  <view class="tr" style="background-color:yellow">
     <view class="tdMenu">合计</view>
     <view class="tdlist">{{play1Sum}}</view>
     <view class="tdlist">{{play2Sum}}</view>
@@ -124,7 +147,7 @@
   <scroll-view scroll-y="true" style="height:220px" class="scroll-header">
     <block wx:for="{{list}}" wx:if="{{list!=null}}">
       <view class="tr">
-        <view class="tdMenu">{{index+1}}</view>
+        <view class="tdMenu">{{item.time}}</view>
         <view class="tdlist">{{item.play1_score}}</view>
         <view class="tdlist">{{item.play2_score}}</view>
         <view class="tdlist">{{item.play3_score}}</view>

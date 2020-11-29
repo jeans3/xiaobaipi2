@@ -13,6 +13,11 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hiddenmodalput1:true,
+    hiddenmodalput2:true,
+    hiddenmodalput3:true,
+    hiddenmodalput4:true,
+    hiddenmodalputshui:true,
     shuiavatarUrl: "'https://thirdwx.qlogo.cn/mmopen/vi_32/4lxZEwLUBZkHKp4d013libuJQ5DYqgAUdEatq4xGQWkSqnCf5WDG9CIibp4CamRI79lllZlUY3j1S0ga2suHLeGQ/132'",
     list: [{}],
     userList: [{}],
@@ -43,7 +48,7 @@ Page({
    */
   onLoad: function (options) {
     util.getOpenid()
-    if(options.date!=null&&options.changciIndex!=null){
+    if (options.date != null && options.changciIndex != null) {
       this.setData({
         date: options.date,
         changciIndex: options.changciIndex
@@ -149,8 +154,17 @@ Page({
     var that = this
     if (util.adminUser(app.globalData.openid)) {
       if (id) {
-        dataBase.onRemove("single", id)
-        that.onQuery()
+        wx.showModal({
+          title: "提示！",
+          content: "是否确定删除",
+          success(res) {
+            if (res.confirm) {
+              dataBase.onRemove("single", id)
+              that.onQuery()
+            }
+          }
+        })
+
       } else {
         wx.showToast({
           title: '无记录可删，请先创建一个记录',
@@ -288,6 +302,7 @@ Page({
     var play4_id = that.data.play4_id
     var shui = util.bijiao(that.data.shui)
     var date = that.data.date
+    var time = dateFormate.formatTime(new Date(Date.now()), "h:m")
     var changciIndex = Number(that.data.changciIndex)
     try {
       dataBase.onQuery("battlelist", "date", this.data.date, "changciIndex", Number(this.data.changciIndex)).then(res => {
@@ -379,7 +394,8 @@ Page({
               play4_score: play4_score,
               changciIndex: changciIndex,
               shui: shui,
-              date: date
+              date: date,
+              time: time,
             },
             //  数据插入成功，调用该函数
             success: function (res) {
@@ -462,9 +478,67 @@ Page({
     this.onQuery()
   },
 
+  modalinput1: function () {
+    this.setData({
+      hiddenmodalput1: !this.data.hiddenmodalput1
+    })
+  },
+  modalinput2: function () {
+    this.setData({
+      hiddenmodalput2: !this.data.hiddenmodalput2
+    })
+  },
+  modalinput3: function () {
+    this.setData({
+      hiddenmodalput3: !this.data.hiddenmodalput3
+    })
+  },
+  modalinput4: function () {
+    this.setData({
+      hiddenmodalput4: !this.data.hiddenmodalput4
+    })
+  },
+  modalinputshui: function () {
+    this.setData({
+      hiddenmodalputshui: !this.data.hiddenmodalputshui
+    })
+  },
+  //取消按钮  
+  cancel1: function () {
+    this.setData({
+      hiddenmodalput1: true
+    });
+  },
+  //确认  
+  confirm1: function () {
+    this.setData({
+      hiddenmodalput1: true
+    })
+  },
+  confirm2: function () {
+    this.setData({
+      hiddenmodalput2: true
+    })
+  },
+  confirm3: function () {
+    this.setData({
+      hiddenmodalput3: true
+    })
+  },
+  confirm4: function () {
+    this.setData({
+      hiddenmodalput4: true
+    })
+  },
+  confirmshui: function () {
+    this.setData({
+      hiddenmodalputshui: true
+    })
+  },
+
   //获取输入的play1片数
   bindKeyInputPlay1: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('picker1发送选择改变，携带值为', e.detail.value)
     this.setData({
       play1_score: e.detail.value
     })
@@ -472,7 +546,7 @@ Page({
 
   //获取输入的play2片数
   bindKeyInputPlay2: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('picker2发送选择改变，携带值为', e.detail.value)
     this.setData({
       play2_score: e.detail.value
     })
@@ -480,7 +554,7 @@ Page({
 
   //获取输入的play3片数
   bindKeyInputPlay3: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('picker3发送选择改变，携带值为', e.detail.value)
     this.setData({
       play3_score: e.detail.value
     })
@@ -488,7 +562,7 @@ Page({
 
   //获取输入的play4片数
   bindKeyInputPlay4: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('picker4发送选择改变，携带值为', e.detail.value)
     this.setData({
       play4_score: e.detail.value
     })
@@ -496,7 +570,7 @@ Page({
 
   //获取输入的水片数
   bindKeyInputshui: function (e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('pickershui发送选择改变，携带值为', e.detail.value)
     this.setData({
       shui: e.detail.value
     })

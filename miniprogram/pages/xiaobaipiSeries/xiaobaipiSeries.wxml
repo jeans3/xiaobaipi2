@@ -59,26 +59,26 @@
       </view>
     </view>
     <view class="tr" >
-      <view class="tddate" style="background-color:red">
+      <view class="tddate" style="background-color:yellow">
         <view class="date" size="default">合计</view>
       </view>
-      <view class="tdUser" style="background-color:red">
+      <view class="tdUser" style="background-color:yellow">
         <view class="tdlist" />
         {{shuiSum}}
       </view>
-      <view class="tdUser" style="background-color:red">
+      <view class="tdUser" style="background-color:yellow">
         <view class="tdlist" />
         {{p0}}
       </view>
-      <view class="tdUser" style="background-color:red">
+      <view class="tdUser" style="background-color:yellow">
         <view class="tdlist" />
         {{p1}}
       </view>
-      <view class="tdUser" style="background-color:red">
+      <view class="tdUser" style="background-color:yellow">
         <view class="tdlist" />
         {{p2}}
       </view>
-      <view class="tdUser" style="background-color:red">
+      <view class="tdUser" style="background-color:yellow">
         <view class="tdlist" />
         {{p3}}
       </view>

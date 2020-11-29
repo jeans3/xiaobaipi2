@@ -30,9 +30,11 @@
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+    "userConfirmedBundleSwitch": false,
     "packNpmManually": true,
     "packNpmRelationList": [],
-    "minifyWXSS": true
+    "minifyWXSS": true,
+    "bundle": false
   },
   "appid": "wxe9ad3d70d411b71e",
   "projectname": "xiaobaipi2",
